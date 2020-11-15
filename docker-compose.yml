@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+
+  laravel:
+    build: .
+    volumes:
+      - ./:/app
+      - ./.temp/composer:/.composer/:rw
+      - ./.temp/composer:/root/.composer/:rw
+    ports:
+      - 8000:8000
+    links:
+      - postgres
+
+  postgres:
+    image: postgres:12.2
+    environment:
+      - POSTGRES_DB=${DB_DATABASE}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
